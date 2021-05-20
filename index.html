@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asian College Music News</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+    <div class="body">
+        <div class="header">
+            <img src="./img/AC_Logo_Vert.png" height="70px" alt="">
+        </div>
+        <div class="content">
+            
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {  
+            var url = 'https://hiphopdx.com/rss/news.xml'; //Data in XML format  
+            $.ajax({  
+                type: 'GET',  
+                url: "https://api.rss2json.com/v1/api.json?rss_url=" + url, //For converting default format to JSON format  
+                dataType: 'jsonp', //for making cross domain call  
+                success: function(data) {  
+                    console.log(data.items[0]);
+                    var total=data.items.length-1;
+                    for(var i=0;i<=total;i++){
+                        var title=data.items[i].title;
+                        var content=data.items[i].description;
+                        $( ".content" ).append( "<div><div class='boxes'><h4>"+title+"</h4><p>"+content+"</p></div></div>" );
+                    }
+                    
+                }  
+            });  
+        }); 
+    </script>
+</body>
+</html>
